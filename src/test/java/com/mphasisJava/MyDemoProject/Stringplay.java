@@ -16,3 +16,6 @@ public class Stringplay {
 	}
 	
 }
+// str1 str2 has same value so same hascode and same address since it is in scp
+// str3 has same value so hashcode is same but address is in heap
+// after concatinating the value changes so address is also changed
