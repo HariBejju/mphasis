@@ -37,7 +37,7 @@ public class MarkException {
 		int avg = sum/n;
 		try {
 			if(avg<50) {
-				throw new MarkEx(" Sorry u have no brains to qualify coz u didnt");
+				throw new MarkEx(" Sorry u have not qualified");
 			}else {
 				System.out.println("Nice bro");
 			}
