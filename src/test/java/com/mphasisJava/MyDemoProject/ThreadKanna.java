@@ -17,7 +17,7 @@ class myThread implements Runnable{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			System.out.println(i);
+			System.out.println("Hi from thread "+i);
 		}
 	}
 	
@@ -30,7 +30,7 @@ public class ThreadKanna {
 
 	public static void main(String args[]) {
 		 myThread t1 = new myThread(1,5,2000);
-		 myThread t2 = new myThread(6,10,2000);
+		 myThread t2 = new myThread(6,10,4000);
 		 
 		 Thread t=new Thread(t1);
 		 Thread s = new Thread(t2);
