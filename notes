@@ -1,0 +1,257 @@
+
+
+   JSP (Java Server Pages)  
+JSP is used to create dynamic web pages and extends servlet functionality.  
+
+   Why Use JSP Instead of Servlets?  
+1. Less Code – JSP allows embedding Java code inside HTML.  
+2. Better Readability – Separation of logic and presentation.  
+3. Built-in Objects – request, response, out, etc., simplify coding.  
+
+   JSP Scripting Elements  
+JSP provides three types of scripting elements:  
+
+Scriptlet: `<% code %>` – Used for writing Java code.  
+Expression: `<%= value %>` – Outputs a value to the client.  
+Declaration: `<%! method/variable %>` – Declares variables and methods.  
+
+Example: Basic JSP Page  
+
+1. Scriptlet Tag
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<html>
+<head>
+    <title>Welcome Page</title>
+</head>
+<body>
+    <% out.print("Welcome to JSP!"); %>
+</body>
+</html>
+
+
+2. JSP Expression Tag  
+
+Syntax: `<%= expression %>`  
+
+Example:  
+
+
+<html>
+<body>
+    <%= "Welcome to JSP" %>
+</body>
+</html>
+
+
+Example: Display User Input  
+
+File: index.jsp  
+
+
+<html>
+<body>
+    <form action="welcome.jsp">
+        <input type="text" name="uname"><br/>
+        <input type="submit" value="Go">
+    </form>
+</body>
+</html>
+
+
+File: welcome.jsp  
+
+
+<html>
+<body>
+    <%= "Welcome " + request.getParameter("uname") %>
+</body>
+</html>
+
+
+3. JSP Declaration Tag  
+Used to declare methods or variables inside JSP.  
+
+Example: Declaring a Variable  
+
+
+<html>
+<body>
+    <%! int data = 50; %>
+    <%= "Value of the variable is: " + data %>
+</body>
+</html>
+
+
+Example: Declaring a Method  
+
+
+<html>
+<body>
+    <%!   
+        int cube(int n) {  
+            return n * n * n;  
+        }  
+    %>
+    <%= "Cube of 3 is: " + cube(3) %>
+</body>
+</html>
+
+
+ JSP Implicit Objects  
+JSP provides several built-in implicit objects.  
+
+1. out Implicit Object  
+Used to print output to the response.  
+
+
+<%
+out.print("Hello, JSP!");
+%>
+
+
+2. request Implicit Object  
+Used to get request parameters.  
+
+
+<%
+String name = request.getParameter("uname");  
+out.print("Welcome " + name);
+%>
+
+
+3. response Implicit Object  
+Used to send responses like redirections.  
+
+Example: Redirecting to Google  
+
+
+<%
+response.sendRedirect("http://www.google.com");
+%>
+
+
+4. config Implicit Object  
+Used to retrieve initialization parameters from web.xml.  
+
+web.xml Configuration:  
+
+
+<web-app>
+    <servlet>
+        <servlet-name>WelcomeServlet</servlet-name>
+        <jsp-file>/welcome.jsp</jsp-file>
+        <init-param>
+            <param-name>dname</param-name>
+            <param-value>sun.jdbc.odbc.JdbcOdbcDriver</param-value>
+        </init-param>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>WelcomeServlet</servlet-name>
+        <url-pattern>/welcome</url-pattern>
+    </servlet-mapping>
+</web-app>
+
+
+welcome.jsp Using config Object:  
+
+
+<%
+out.print("Welcome " + request.getParameter("uname"));
+
+String driver = config.getInitParameter("dname");
+out.print("Driver name is: " + driver);
+%>
+
+
+- JSP simplifies dynamic content generation compared to servlets.  
+- JSP Scripting Elements allow Java code inside JSP (`<%= %>`, `<%! %>`, `<% %>`).  
+- JSP Implicit Objects like out, request, and response simplify web development.  
+
+5. Session implicit object
+
+Example of session implicit object
+index.html
+<html>  
+<body>  
+<form action="welcome.jsp">  
+<input type="text" name="uname">  
+<input type="submit" value="go"><br/>  
+</form>  
+</body>  
+</html>  
+welcome.jsp
+<html>  
+<body>  
+<%   
+  
+String name=request.getParameter("uname");  
+out.print("Welcome "+name);  
+  
+session.setAttribute("user",name);  
+  
+<a href="second.jsp">second jsp page</a>  
+  
+%>  
+</body>  
+</html>  
+second.jsp
+<html>  
+<body>  
+<%   
+  
+String name=(String)session.getAttribute("user");  
+out.print("Hello "+name);  
+  
+%>  
+</body>  
+</html> 
+
+
+6. pageContext implicit object
+
+Real-World Web Application Scenario: Customer Support Chat
+Imagine you are using a customer support chat on a website.
+
+You open a chat window and start talking to the support agent.
+The chat interface shows details like your name, chat start time, and current page.
+These details are only relevant to this specific page and do not carry over to other pages.
+In JSP, pageContext works in a similar way. It is used to store and manage page-specific information.
+
+
+Example of pageContext implicit object
+index.html
+<html>  
+<body>  
+<form action="welcome.jsp">  
+<input type="text" name="uname">  
+<input type="submit" value="go"><br/>  
+</form>  
+</body>  
+</html>  
+welcome.jsp
+<html>  
+<body>  
+<%   
+  
+String name=request.getParameter("uname");  
+out.print("Welcome "+name);  
+  
+pageContext.setAttribute("user",name,PageContext.SESSION_SCOPE);  
+  
+<a href="second.jsp">second jsp page</a>  
+  
+%>  
+</body>  
+</html>  
+second.jsp
+<html>  
+<body>  
+<%   
+  
+String name=(String)pageContext.getAttribute("user",PageContext.SESSION_SCOPE);  
+out.print("Hello "+name);  
+  
+%>  
+</body>  
+</html>   
