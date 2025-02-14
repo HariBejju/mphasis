@@ -232,4 +232,12 @@ out.print("Hello "+name);
 </body>  
 </html>  
 ```
+## Summary of Scopes in `pageContext`
+
+| Scope Level         | Availability                                   | Access in Other Pages? |
+|---------------------|----------------------------------------------|------------------------|
+| **Page Scope**      | Only in the current JSP page                 | ❌ No                 |
+| **Request Scope**   | Available during the request lifecycle       | ✅ Yes (if forwarded) |
+| **Session Scope**   | Available throughout the user session        | ✅ Yes                |
+| **Application Scope** | Available for the entire application         | ✅ Yes (Globally)      |
 
